@@ -1,0 +1,205 @@
+// Paleta cálida artesanal
+$crema: #faf6f0;
+$crema-hueso: #f2eade;
+$blanco: #ffffff;
+$cafe: #2e2016;
+$cafe-suave: #7a6a5c;
+$terracota: #c25b3a;
+$terracota-oscuro: #a44828;
+$arena: #e4d8c7;
+
+$serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+$sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+
+$espacio: 1rem;
+$radio: 10px;
+$sombra: 0 2px 4px rgba(46, 32, 22, 0.05), 0 8px 24px rgba(46, 32, 22, 0.06);
+$sombra-alta: 0 4px 8px rgba(46, 32, 22, 0.08), 0 16px 32px rgba(46, 32, 22, 0.1);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $sans;
+  background: $crema;
+  color: $cafe;
+  line-height: 1.5;
+}
+
+// ---------- Encabezado ----------
+.encabezado {
+  background: $crema-hueso;
+  border-bottom: 1px solid $arena;
+  padding: $espacio * 3 $espacio $espacio * 2.5;
+
+  &__interior {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  &__eyebrow {
+    margin: 0 0 $espacio * 0.5;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: $terracota;
+    font-weight: 700;
+  }
+
+  &__titulo {
+    margin: 0;
+    font-family: $serif;
+    font-size: clamp(2rem, 5vw, 2.9rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  &__lema {
+    margin: $espacio * 0.6 0 0;
+    color: $cafe-suave;
+    max-width: 46ch;
+  }
+}
+
+// ---------- Contenido ----------
+.contenido {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: $espacio * 2 $espacio $espacio * 4;
+}
+
+// ---------- Filtros ----------
+.filtros {
+  margin-bottom: $espacio * 2;
+
+  &__titulo {
+    margin: 0 0 $espacio * 0.75;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $cafe-suave;
+    font-weight: 700;
+  }
+
+  &__lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $espacio * 0.5;
+  }
+}
+
+.filtro {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.45rem 1.1rem;
+  border: 1px solid $arena;
+  border-radius: 999px;
+  background: $blanco;
+  color: $cafe;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: $terracota;
+    color: $terracota;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $terracota;
+    outline-offset: 2px;
+  }
+
+  &--activo {
+    background: $terracota;
+    border-color: $terracota;
+    color: $blanco;
+
+    &:hover {
+      background: $terracota-oscuro;
+      border-color: $terracota-oscuro;
+      color: $blanco;
+    }
+  }
+}
+
+// ---------- Estado ----------
+.estado {
+  margin: 0 0 $espacio;
+  color: $cafe-suave;
+  font-style: italic;
+
+  &:empty {
+    display: none;
+  }
+}
+
+// ---------- Productos ----------
+.productos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: $espacio * 1.25;
+}
+
+.producto {
+  position: relative;
+  background: $blanco;
+  border-radius: $radio;
+  padding: $espacio * 1.5 $espacio * 1.25 $espacio * 1.25;
+  box-shadow: $sombra;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: $terracota;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: $sombra-alta;
+  }
+
+  &__categoria {
+    margin: 0 0 $espacio * 0.4;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $terracota;
+    font-weight: 700;
+  }
+
+  &__nombre {
+    margin: 0 0 $espacio * 0.75;
+    font-family: $serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  &__precio {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  &__existencias {
+    margin: $espacio * 0.35 0 0;
+    font-size: 0.82rem;
+    color: $cafe-suave;
+
+    &--agotado {
+      color: $terracota-oscuro;
+      font-weight: 600;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda en Línea Modular</title>
+  </head>
+  <body>
+    <header class="encabezado">
+      <div class="encabezado__interior">
+        <p class="encabezado__eyebrow">Catálogo</p>
+        <h1 class="encabezado__titulo">Tienda en Línea Modular</h1>
+        <p class="encabezado__lema">Muebles y productos del taller, en un solo lugar</p>
+      </div>
+    </header>
+
+    <main class="contenido">
+      <section class="filtros" aria-label="Filtro por categoría">
+        <h2 class="filtros__titulo">Categorías</h2>
+        <div class="filtros__lista" id="filtro-categorias" role="group"></div>
+      </section>
+
+      <section class="catalogo" aria-label="Catálogo de productos">
+        <p id="estado" class="estado">Cargando productos...</p>
+        <ul id="lista-productos" class="productos"></ul>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
