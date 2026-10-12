@@ -1,0 +1,250 @@
+@use "tokens" as *;
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  font-family: $sans;
+  background: $crema;
+  color: $cafe;
+  line-height: 1.5;
+
+  &.sin-scroll {
+    overflow: hidden;
+  }
+}
+
+.solo-lector {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.eyebrow {
+  margin: 0 0 $espacio * 0.5;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $terracota;
+  font-weight: 700;
+}
+
+// ---------- Botones ----------
+.boton {
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.55rem 1.15rem;
+  border: 1px solid $arena;
+  border-radius: 999px;
+  background: $blanco;
+  color: $cafe;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    border-color: $terracota;
+    color: $terracota-oscuro;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $terracota;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  &--primario {
+    background: $terracota;
+    border-color: $terracota;
+    color: $blanco;
+
+    &:hover:not(:disabled) {
+      background: $terracota-oscuro;
+      border-color: $terracota-oscuro;
+      color: $blanco;
+    }
+  }
+
+  &--peligro {
+    background: $peligro;
+    border-color: $peligro;
+    color: $blanco;
+
+    &:hover:not(:disabled) {
+      background: $peligro-oscuro;
+      border-color: $peligro-oscuro;
+      color: $blanco;
+    }
+  }
+
+  &--peligro-suave {
+    color: $peligro;
+
+    &:hover:not(:disabled) {
+      border-color: $peligro;
+      background: $peligro-fondo;
+      color: $peligro-oscuro;
+    }
+  }
+
+  &--chico {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.8rem;
+  }
+
+  &--completo {
+    width: 100%;
+  }
+}
+
+.enlace-discreto {
+  font-size: 0.85rem;
+  color: $cafe-suave;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: $terracota-oscuro;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $terracota;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+.enlace-boton {
+  font: inherit;
+  font-size: 0.82rem;
+  background: none;
+  border: 0;
+  padding: 0.2rem 0;
+  color: $cafe-suave;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+
+  &:hover {
+    color: $peligro;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $terracota;
+    outline-offset: 2px;
+  }
+}
+
+// ---------- Formularios ----------
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  &__etiqueta {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  &__control {
+    font: inherit;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid $arena;
+    border-radius: 8px;
+    background: $blanco;
+    color: $cafe;
+    width: 100%;
+
+    &:focus-visible {
+      outline: 2px solid $terracota;
+      outline-offset: 1px;
+      border-color: $terracota;
+    }
+
+    &[aria-invalid="true"] {
+      border-color: $peligro;
+      background: $peligro-fondo;
+    }
+  }
+
+  &__ayuda {
+    margin: 0;
+    font-size: 0.78rem;
+    color: $cafe-suave;
+  }
+
+  &__error {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $peligro;
+
+    &:empty {
+      display: none;
+    }
+  }
+}
+
+// ---------- Mensajes ----------
+.mensaje {
+  margin: 0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+
+  &:empty {
+    display: none;
+  }
+
+  &--ok {
+    background: $ok-fondo;
+    color: $ok;
+  }
+
+  &--error {
+    background: $peligro-fondo;
+    color: $peligro-oscuro;
+  }
+}
+
+// Aviso flotante (por ejemplo «Agregado al carrito»).
+.aviso {
+  position: fixed;
+  left: 50%;
+  top: $espacio * 1.25;
+  transform: translate(-50%, -20px);
+  max-width: min(90vw, 420px);
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  background: $cafe;
+  color: $crema;
+  font-size: 0.9rem;
+  box-shadow: $sombra-alta;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 60;
+
+  &--visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  &--error {
+    background: $peligro;
+    color: $blanco;
+  }
+}

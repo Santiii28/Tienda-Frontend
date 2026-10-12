@@ -1,5 +1,7 @@
 import "./styles/main.scss";
 import { obtenerCategorias, obtenerProductos } from "./api.js";
+import { agregarAlCarrito, iniciarCarrito } from "./carrito.js";
+import { crear, formatearPrecio } from "./utils.js";
 
 const contenedorFiltros = document.querySelector("#filtro-categorias");
 const listaProductos = document.querySelector("#lista-productos");
@@ -7,43 +9,47 @@ const estado = document.querySelector("#estado");
 
 let categoriaActiva = "";
 
-function formatearPrecio(valor) {
-  return Number(valor).toLocaleString("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  });
-}
-
 function crearTarjeta(producto) {
-  const item = document.createElement("li");
-  item.className = "producto";
+  const agotado = producto.existencias === 0;
 
-  const categoria = document.createElement("p");
-  categoria.className = "producto__categoria";
-  categoria.textContent = producto.categoria_nombre;
-
-  const nombre = document.createElement("h3");
-  nombre.className = "producto__nombre";
-  nombre.textContent = producto.nombre;
-
-  const precio = document.createElement("p");
-  precio.className = "producto__precio";
-  precio.textContent = formatearPrecio(producto.precio);
-
-  const existencias = document.createElement("p");
-  existencias.className = "producto__existencias";
-  existencias.textContent =
-    producto.existencias > 0
-      ? `${producto.existencias} disponibles`
-      : "Agotado";
-
-  if (producto.existencias === 0) {
-    existencias.classList.add("producto__existencias--agotado");
-  }
-
-  item.append(categoria, nombre, precio, existencias);
-  return item;
+  return crear(
+    "li",
+    { clase: "producto" },
+    producto.imagen
+      ? crear("img", {
+          clase: "producto__imagen",
+          src: producto.imagen,
+          alt: producto.nombre,
+          loading: "lazy",
+          onError: (evento) => evento.target.remove(),
+        })
+      : null,
+    crear(
+      "div",
+      { clase: "producto__contenido" },
+      crear("p", { clase: "producto__categoria", texto: producto.categoria_nombre }),
+      crear("h3", { clase: "producto__nombre", texto: producto.nombre }),
+      producto.descripcion
+        ? crear("p", { clase: "producto__descripcion", texto: producto.descripcion })
+        : null,
+      crear("p", { clase: "producto__precio", texto: formatearPrecio(producto.precio) }),
+      crear("p", {
+        clase: agotado
+          ? "producto__existencias producto__existencias--agotado"
+          : "producto__existencias",
+        texto: agotado ? "Agotado" : `${producto.existencias} disponibles`,
+      }),
+      agotado
+        ? null
+        : crear("button", {
+            type: "button",
+            clase: "boton boton--primario boton--completo",
+            texto: "Agregar al carrito",
+            "aria-label": `Agregar ${producto.nombre} al carrito`,
+            onClick: () => agregarAlCarrito(producto),
+          }),
+    ),
+  );
 }
 
 function pintarProductos(productos) {
@@ -111,6 +117,7 @@ function mostrarError(error) {
 }
 
 async function iniciar() {
+  iniciarCarrito();
   try {
     await cargarCategorias();
     await cargarProductos("");

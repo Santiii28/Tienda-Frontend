@@ -1,51 +1,39 @@
-// Paleta cálida artesanal
-$crema: #faf6f0;
-$crema-hueso: #f2eade;
-$blanco: #ffffff;
-$cafe: #2e2016;
-$cafe-suave: #7a6a5c;
-$terracota: #c25b3a;
-$terracota-oscuro: #a44828;
-$arena: #e4d8c7;
-
-$serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
-$sans: "Segoe UI", system-ui, -apple-system, sans-serif;
-
-$espacio: 1rem;
-$radio: 10px;
-$sombra: 0 2px 4px rgba(46, 32, 22, 0.05), 0 8px 24px rgba(46, 32, 22, 0.06);
-$sombra-alta: 0 4px 8px rgba(46, 32, 22, 0.08), 0 16px 32px rgba(46, 32, 22, 0.1);
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: $sans;
-  background: $crema;
-  color: $cafe;
-  line-height: 1.5;
-}
+@use "tokens" as *;
+@use "base";
+@use "carrito";
 
 // ---------- Encabezado ----------
 .encabezado {
   background: $crema-hueso;
   border-bottom: 1px solid $arena;
-  padding: $espacio * 3 $espacio $espacio * 2.5;
+  padding: $espacio * 1.5 $espacio $espacio * 2.5;
 
   &__interior {
     max-width: 1040px;
     margin: 0 auto;
   }
 
+  &__barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $espacio;
+    margin-bottom: $espacio * 1.5;
+  }
+
   &__eyebrow {
-    margin: 0 0 $espacio * 0.5;
+    margin: 0;
     font-size: 0.72rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: $terracota;
     font-weight: 700;
+  }
+
+  &__acciones {
+    display: flex;
+    align-items: center;
+    gap: $espacio * 1.25;
   }
 
   &__titulo {
@@ -148,9 +136,10 @@ body {
 
 .producto {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: $blanco;
   border-radius: $radio;
-  padding: $espacio * 1.5 $espacio * 1.25 $espacio * 1.25;
   box-shadow: $sombra;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
   overflow: hidden;
@@ -161,11 +150,27 @@ body {
     inset: 0 auto 0 0;
     width: 3px;
     background: $terracota;
+    z-index: 1;
   }
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: $sombra-alta;
+  }
+
+  &__imagen {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: $crema-hueso;
+  }
+
+  &__contenido {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: $espacio * 1.5 $espacio * 1.25 $espacio * 1.25;
   }
 
   &__categoria {
@@ -178,22 +183,29 @@ body {
   }
 
   &__nombre {
-    margin: 0 0 $espacio * 0.75;
+    margin: 0 0 $espacio * 0.5;
     font-family: $serif;
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.25;
   }
 
+  &__descripcion {
+    margin: 0 0 $espacio * 0.75;
+    font-size: 0.85rem;
+    color: $cafe-suave;
+  }
+
   &__precio {
-    margin: 0;
+    margin: auto 0 0;
+    padding-top: $espacio * 0.25;
     font-size: 1.45rem;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
 
   &__existencias {
-    margin: $espacio * 0.35 0 0;
+    margin: $espacio * 0.35 0 $espacio * 0.9;
     font-size: 0.82rem;
     color: $cafe-suave;
 

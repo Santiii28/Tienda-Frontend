@@ -1,0 +1,298 @@
+@use "tokens" as *;
+@use "base";
+
+// ---------- Inicio de sesión ----------
+.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: $espacio * 1.5 $espacio;
+  background: $crema-hueso;
+
+  &__tarjeta {
+    width: min(100%, 400px);
+    padding: $espacio * 2;
+    background: $blanco;
+    border-radius: $radio;
+    box-shadow: $sombra;
+    border-top: 3px solid $terracota;
+  }
+
+  &__titulo {
+    margin: 0;
+    font-family: $serif;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  &__texto {
+    margin: $espacio * 0.5 0 $espacio * 1.5;
+    color: $cafe-suave;
+    font-size: 0.92rem;
+  }
+
+  &__formulario {
+    display: flex;
+    flex-direction: column;
+    gap: $espacio;
+    margin-bottom: $espacio * 1.5;
+  }
+}
+
+// ---------- Barra superior ----------
+.barra {
+  background: $crema-hueso;
+  border-bottom: 1px solid $arena;
+  padding: $espacio * 1.25 $espacio;
+
+  &__interior {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $espacio;
+    flex-wrap: wrap;
+  }
+
+  &__titulo {
+    margin: 0;
+    font-family: $serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  &__sesion {
+    display: flex;
+    align-items: center;
+    gap: $espacio;
+    flex-wrap: wrap;
+  }
+
+  &__usuario {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $cafe-suave;
+  }
+}
+
+// ---------- Panel ----------
+.panel {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: $espacio * 1.5 $espacio $espacio * 4;
+}
+
+.pestanas {
+  display: flex;
+  gap: $espacio * 0.5;
+  margin-bottom: $espacio * 1.5;
+  border-bottom: 1px solid $arena;
+}
+
+.pestana {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  color: $cafe-suave;
+  cursor: pointer;
+
+  &:hover {
+    color: $terracota-oscuro;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $terracota;
+    outline-offset: -2px;
+  }
+
+  &--activa {
+    color: $cafe;
+    border-bottom-color: $terracota;
+  }
+}
+
+.seccion {
+  display: flex;
+  flex-direction: column;
+  gap: $espacio;
+
+  &__barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $espacio;
+    flex-wrap: wrap;
+  }
+
+  &__titulo {
+    margin: 0;
+    font-family: $serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+}
+
+// ---------- Formulario ----------
+.formulario {
+  padding: $espacio * 1.5;
+  background: $blanco;
+  border-radius: $radio;
+  box-shadow: $sombra;
+  border-left: 3px solid $terracota;
+  display: flex;
+  flex-direction: column;
+  gap: $espacio;
+
+  &__titulo {
+    margin: 0;
+    font-family: $serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+
+  &__nota {
+    margin: -0.5rem 0 0;
+    font-size: 0.8rem;
+    color: $cafe-suave;
+  }
+
+  &__campos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: $espacio;
+
+    .campo:has(textarea),
+    .campo:has([name="nombre"]) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__acciones {
+    display: flex;
+    gap: $espacio * 0.6;
+    flex-wrap: wrap;
+  }
+}
+
+// ---------- Tabla ----------
+.tabla-contenedor {
+  background: $blanco;
+  border-radius: $radio;
+  box-shadow: $sombra;
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+
+  th,
+  td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $cafe-suave;
+    background: $crema;
+    border-bottom: 1px solid $arena;
+  }
+
+  td {
+    border-bottom: 1px solid $arena;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover {
+    background: rgba(242, 234, 222, 0.45);
+  }
+
+  .col-acciones {
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+.acciones {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  &__pregunta {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $peligro-oscuro;
+  }
+}
+
+.vacio {
+  margin: $espacio * 2 0;
+  text-align: center;
+  color: $cafe-suave;
+  font-style: italic;
+}
+
+// En pantallas angostas cada fila de la tabla pasa a ser una tarjeta.
+@media (max-width: 640px) {
+  .tabla {
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+
+    tr {
+      display: block;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid $arena;
+    }
+
+    tbody tr:last-child {
+      border-bottom: 0;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      gap: $espacio;
+      padding: 0.3rem 1rem;
+      border-bottom: 0;
+      text-align: right;
+
+      &::before {
+        content: attr(data-etiqueta);
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: $cafe-suave;
+        font-weight: 700;
+        text-align: left;
+      }
+    }
+
+    .col-acciones {
+      justify-content: flex-end;
+
+      &::before {
+        content: none;
+      }
+    }
+  }
+}

@@ -9,7 +9,22 @@
   <body>
     <header class="encabezado">
       <div class="encabezado__interior">
-        <p class="encabezado__eyebrow">Catálogo</p>
+        <div class="encabezado__barra">
+          <p class="encabezado__eyebrow">Catálogo</p>
+          <nav class="encabezado__acciones" aria-label="Acciones">
+            <a class="enlace-discreto" href="/admin.html">Administración</a>
+            <button
+              type="button"
+              class="boton-carrito"
+              id="abrir-carrito"
+              aria-haspopup="dialog"
+              aria-label="Carrito, 0 productos"
+            >
+              Carrito
+              <span class="boton-carrito__cuenta" id="cuenta-carrito">0</span>
+            </button>
+          </nav>
+        </div>
         <h1 class="encabezado__titulo">Tienda en Línea Modular</h1>
         <p class="encabezado__lema">Muebles y productos del taller, en un solo lugar</p>
       </div>
@@ -26,6 +41,37 @@
         <ul id="lista-productos" class="productos"></ul>
       </section>
     </main>
+
+    <div class="cortina" id="cortina" hidden></div>
+    <aside
+      class="carrito"
+      id="panel-carrito"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="titulo-carrito"
+      hidden
+    >
+      <div class="carrito__cabecera">
+        <h2 class="carrito__titulo" id="titulo-carrito">Tu carrito</h2>
+        <button
+          type="button"
+          class="carrito__cerrar"
+          id="cerrar-carrito"
+          aria-label="Cerrar carrito"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="carrito__cuerpo" id="carrito-cuerpo"></div>
+      <div class="carrito__resumen">
+        <p class="carrito__total">
+          <span>Total</span>
+          <strong id="carrito-total">$ 0</strong>
+        </p>
+      </div>
+    </aside>
+
+    <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
 
     <script type="module" src="/src/main.js"></script>
   </body>
