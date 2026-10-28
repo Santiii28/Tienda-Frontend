@@ -108,6 +108,15 @@ export async function iniciarSesion(username, password) {
   });
 }
 
+// Crea una cuenta de cliente y deja la sesión abierta.
+export async function registrarse(nombre, correo, password) {
+  await pedir("/auth/csrf/");
+  return pedir("/auth/registro/", {
+    metodo: "POST",
+    cuerpo: { nombre, correo, password },
+  });
+}
+
 export function cerrarSesion() {
   return pedir("/auth/logout/", { metodo: "POST" });
 }
@@ -128,4 +137,7 @@ export const carritos = {
     }),
   quitar: (token, itemId) =>
     pedir(`/carritos/${token}/items/${itemId}/`, { metodo: "DELETE" }),
+  // Compra simulada: la API valida los datos, devuelve el resumen y vacía el carrito.
+  comprar: (token, datos) =>
+    pedir(`/carritos/${token}/comprar/`, { metodo: "POST", cuerpo: datos }),
 };

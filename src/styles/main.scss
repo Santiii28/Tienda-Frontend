@@ -2,160 +2,387 @@
 @use "base";
 @use "carrito";
 
-// ---------- Encabezado ----------
-.encabezado {
-  background: $crema-hueso;
-  border-bottom: 1px solid $arena;
-  padding: $espacio * 1.5 $espacio $espacio * 2.5;
+$ancho: 1152px;
 
-  &__interior {
-    max-width: 1040px;
-    margin: 0 auto;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; // deja ver el título bajo la barra fija
+}
+
+.icono {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// ---------- Barra superior ----------
+.encabezado {
+  &__barra {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid $linea;
+    backdrop-filter: saturate(1.4) blur(10px);
   }
 
-  &__barra {
+  &__interior--barra {
+    max-width: $ancho;
+    margin: 0 auto;
+    padding: 0.55rem $espacio;
+    min-height: 4rem;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: $espacio;
-    margin-bottom: $espacio * 1.5;
-  }
-
-  &__eyebrow {
-    margin: 0;
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: $terracota;
-    font-weight: 700;
+    gap: 0.5rem $espacio;
   }
 
   &__acciones {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: $espacio * 1.25;
+    gap: 0.5rem 1.75rem;
+
+    .enlace-discreto {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $tinta;
+      text-decoration: none;
+
+      &:hover {
+        color: $acento;
+      }
+    }
+  }
+
+  &__eyebrow {
+    margin: 0 0 $espacio;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $acento;
+    font-weight: 700;
   }
 
   &__titulo {
     margin: 0;
-    font-family: $serif;
-    font-size: clamp(2rem, 5vw, 2.9rem);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
   }
 
   &__lema {
-    margin: $espacio * 0.6 0 0;
-    color: $cafe-suave;
+    margin: 1.25rem 0 0;
     max-width: 46ch;
+    font-size: 1.125rem;
+    color: $apagado;
+  }
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: $tinta;
+  text-decoration: none;
+
+  &__logo {
+    display: block;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+  }
+
+  &__nombre {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $acento;
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+}
+
+// ---------- Buscador ----------
+.buscador {
+  flex: 1 1 14rem;
+  max-width: 28rem;
+  margin: 0;
+
+  &__etiqueta {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  &__campo {
+    width: 100%;
+    font: inherit;
+    font-size: 0.875rem;
+    padding: 0.55rem 1rem 0.55rem 2.5rem;
+    border: 1px solid $linea;
+    border-radius: 999px;
+    background: $lienzo
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%2368625e' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='5'/%3E%3Cpath d='m11 11 3.5 3.5'/%3E%3C/svg%3E")
+      no-repeat 1rem center;
+    color: $tinta;
+
+    &::placeholder {
+      color: $apagado;
+    }
+
+    &:focus {
+      outline: 0;
+      border-color: $acento;
+      box-shadow: 0 0 0 3px rgba(203, 66, 25, 0.2);
+      background-color: $blanco;
+    }
   }
 }
 
 // ---------- Contenido ----------
 .contenido {
-  max-width: 1040px;
+  max-width: $ancho;
   margin: 0 auto;
-  padding: $espacio * 2 $espacio $espacio * 4;
+  padding: 2rem $espacio 0;
 }
 
-// ---------- Filtros ----------
-.filtros {
-  margin-bottom: $espacio * 2;
+// ---------- Portada ----------
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-radius: $radio-grande;
+  background: $blanco;
 
-  &__titulo {
-    margin: 0 0 $espacio * 0.75;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: $cafe-suave;
-    font-weight: 700;
+  &__texto {
+    position: relative;
+    padding: 2rem 1.5rem 2.5rem;
   }
 
-  &__lista {
+  // Foto de portada: en pantallas angostas va arriba como franja.
+  &__foto {
+    order: -1;
+    margin: 1rem 1rem 0;
+    height: 14rem;
+    overflow: hidden;
+    border-radius: $radio;
+    background: $suave;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 40% 62%;
+    }
+  }
+
+  &__cta {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.75rem 1.75rem;
+    text-decoration: none;
+  }
+
+  &__datos {
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: $espacio * 0.5;
-  }
-}
+    gap: 0.5rem;
+    margin: 2rem 0 0;
+    padding: 0;
 
-.filtro {
-  font: inherit;
-  font-size: 0.9rem;
-  padding: 0.45rem 1.1rem;
-  border: 1px solid $arena;
-  border-radius: 999px;
-  background: $blanco;
-  color: $cafe;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-
-  &:hover {
-    border-color: $terracota;
-    color: $terracota;
+    li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: 999px;
+      background: $acento-suave;
+      color: $acento-oscuro;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
   }
 
-  &:focus-visible {
-    outline: 2px solid $terracota;
-    outline-offset: 2px;
-  }
+  // Sello sobre la esquina inferior izquierda de la foto; en pantallas angostas se oculta.
+  &__sello {
+    position: absolute;
+    z-index: 2;
+    bottom: 2.5rem;
+    left: calc(55% - 4.5rem);
+    width: 140px;
+    height: 140px;
+    transform: rotate(-8deg);
+    filter: drop-shadow(0 10px 20px rgba(21, 16, 14, 0.25));
 
-  &--activo {
-    background: $terracota;
-    border-color: $terracota;
-    color: $blanco;
-
-    &:hover {
-      background: $terracota-oscuro;
-      border-color: $terracota-oscuro;
-      color: $blanco;
+    @media (max-width: 859px) {
+      display: none;
     }
   }
 }
 
-// ---------- Estado ----------
+@media (min-width: 860px) {
+  .hero {
+    grid-template-columns: 1.1fr 0.9fr;
+
+    &__texto {
+      align-self: center;
+      padding: 4rem 3rem 4rem 3.5rem;
+    }
+
+    &__foto {
+      order: 0;
+      height: auto;
+      min-height: 26rem;
+      margin: 1rem;
+    }
+  }
+}
+
+// ---------- Categorías ----------
+.filtros {
+  padding-top: 3.5rem;
+
+  &__titulo {
+    margin: 0 0 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+
+  &__lista {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $espacio;
+  }
+}
+
+.filtro {
+  display: flex;
+  align-items: center;
+  gap: $espacio;
+  font: inherit;
+  padding: 1.25rem;
+  border: 2px solid transparent;
+  border-radius: $radio-grande;
+  background: $blanco;
+  color: $tinta;
+  cursor: pointer;
+  text-align: left;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+
+  &__icono {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: $radio;
+    background: $suave;
+    color: $acento;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  &__nombre {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  &:hover {
+    box-shadow: $sombra-alta;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $acento;
+    outline-offset: 2px;
+  }
+
+  &--activo {
+    border-color: $tinta;
+  }
+}
+
+// ---------- Catálogo ----------
+.catalogo {
+  padding: 3.5rem 0;
+
+  &__cabecera {
+    margin-bottom: 1.5rem;
+  }
+
+  &__titulo {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+
+  &__conteo {
+    margin: 0.15rem 0 0;
+    font-size: 0.875rem;
+    color: $apagado;
+
+    &:empty {
+      display: none;
+    }
+  }
+}
+
 .estado {
   margin: 0 0 $espacio;
-  color: $cafe-suave;
-  font-style: italic;
+  padding: 3rem 1rem;
+  border-radius: $radio-grande;
+  background: $blanco;
+  text-align: center;
+  color: $apagado;
 
   &:empty {
     display: none;
   }
 }
 
-// ---------- Productos ----------
 .productos {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: $espacio * 1.25;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start; // al abrir un detalle, solo crece esa tarjeta
 }
 
 .producto {
-  position: relative;
   display: flex;
   flex-direction: column;
+  padding: $espacio;
   background: $blanco;
-  border-radius: $radio;
-  box-shadow: $sombra;
+  border-radius: $radio-grande;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
-  overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 3px;
-    background: $terracota;
-    z-index: 1;
-  }
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: $sombra-alta;
+    transform: translateY(-4px);
+    box-shadow: $sombra-tarjeta;
+  }
+
+  &__marco {
+    position: relative;
+    cursor: pointer;
   }
 
   &__imagen {
@@ -163,55 +390,398 @@
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    background: $crema-hueso;
+    border-radius: 20px;
+    background: $suave;
+
+    &--vacia {
+      display: grid;
+      place-items: center;
+      font-size: 4.5rem;
+      font-weight: 800;
+      color: $acento;
+    }
+  }
+
+  &__insignia {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: $negro;
+    color: $blanco;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  &__insignia--oferta {
+    left: auto;
+    right: 0.75rem;
+    background: $acento;
+  }
+
+  &__precios {
+    text-align: right;
   }
 
   &__contenido {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    padding: $espacio * 1.5 $espacio * 1.25 $espacio * 1.25;
+    margin-top: $espacio;
+  }
+
+  &__fila {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    > div {
+      min-width: 0; // un nombre larguísimo no debe ensanchar la tarjeta
+    }
   }
 
   &__categoria {
-    margin: 0 0 $espacio * 0.4;
-    font-size: 0.68rem;
-    letter-spacing: 0.16em;
+    margin: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: $terracota;
-    font-weight: 700;
+    color: $acento;
+    font-weight: 600;
   }
 
   &__nombre {
-    margin: 0 0 $espacio * 0.5;
-    font-family: $serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    line-height: 1.25;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
   }
 
-  &__descripcion {
-    margin: 0 0 $espacio * 0.75;
-    font-size: 0.85rem;
-    color: $cafe-suave;
+  &__enlace {
+    all: unset;
+    display: inline;
+    cursor: pointer;
+    overflow-wrap: anywhere;
+    border-radius: 4px;
+
+    &:hover {
+      color: $acento;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $acento;
+      outline-offset: 2px;
+    }
   }
 
   &__precio {
-    margin: auto 0 0;
-    padding-top: $espacio * 0.25;
-    font-size: 1.45rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  &__detalle {
+    margin-top: 0.5rem;
+  }
+
+  &__detalle-titulo {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    width: fit-content;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $apagado;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      background: currentColor;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+        center / contain no-repeat;
+      transition: transform 0.18s ease;
+    }
+
+    &:hover {
+      color: $tinta;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $acento;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
+
+  &__detalle[open] > &__detalle-titulo::after {
+    transform: rotate(180deg);
+  }
+
+  &__descripcion {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 0.875rem;
+    color: $apagado;
+  }
+
+  &__acciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: $espacio;
+
+    .boton {
+      padding-inline: 0.75rem;
+    }
   }
 
   &__existencias {
-    margin: $espacio * 0.35 0 $espacio * 0.9;
-    font-size: 0.82rem;
-    color: $cafe-suave;
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $apagado;
 
     &--agotado {
-      color: $terracota-oscuro;
-      font-weight: 600;
+      color: $acento-oscuro;
     }
   }
+}
+
+// ---------- Orden y filtros del catálogo ----------
+.herramientas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: $radio;
+  background: $blanco;
+
+  &__campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1 1 7rem;
+    min-width: 0;
+
+    &:first-child {
+      flex-basis: 12rem;
+    }
+  }
+
+  &__etiqueta {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $apagado;
+  }
+
+  &__control {
+    font: inherit;
+    font-size: 0.875rem;
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid $borde-campo;
+    border-radius: 20px;
+    background: $blanco;
+    color: $tinta;
+
+    &:focus-visible {
+      outline: 0;
+      border-color: $acento;
+      box-shadow: 0 0 0 3px rgba(203, 66, 25, 0.2);
+    }
+  }
+
+  &__marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.6rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    input {
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: $acento;
+    }
+  }
+
+  &__limpiar {
+    padding-bottom: 0.6rem;
+  }
+}
+
+// ---------- Ventana de ayuda ----------
+.info {
+  &__pasos {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    line-height: 1.55;
+  }
+
+  &__texto {
+    margin: 0 0 0.75rem;
+    line-height: 1.55;
+    color: $apagado;
+  }
+
+  &__pregunta {
+    margin-bottom: 1.25rem;
+  }
+
+  &__titulo-pregunta {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+// ---------- Pie de página ----------
+.pie {
+  border-top: 1px solid $linea;
+  background: $blanco;
+  font-size: 0.875rem;
+  color: $apagado;
+
+  p {
+    margin: 0;
+  }
+
+  &__interior {
+    max-width: $ancho;
+    margin: 0 auto;
+    padding: 3rem $espacio;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  &__titulo {
+    margin: 0 0 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: $tinta;
+
+    &--marca {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+
+      img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    a {
+      color: $apagado;
+      text-decoration: none;
+
+      &:hover {
+        color: $acento;
+      }
+    }
+  }
+
+  // Los enlaces de ayuda son botones que abren una ventana, pero se ven como enlaces.
+  &__enlace {
+    font: inherit;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: $apagado;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      color: $acento;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $acento;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
+
+  &__derechos {
+    padding: 1.25rem $espacio;
+    border-top: 1px solid $linea;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+}
+
+// ---------- Pantallas medianas y grandes ----------
+@media (min-width: 640px) {
+  .productos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pie__interior {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .productos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .buscador {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .filtros__lista {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Precio anterior tachado (tarjetas y ficha) y texto solo para lectores de pantalla.
+.precio-anterior {
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $apagado;
+  white-space: nowrap;
+}
+
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }

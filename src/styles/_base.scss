@@ -11,8 +11,8 @@
 body {
   margin: 0;
   font-family: $sans;
-  background: $crema;
-  color: $cafe;
+  background: $lienzo;
+  color: $tinta;
   line-height: 1.5;
 
   &.sin-scroll {
@@ -34,30 +34,34 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: $terracota;
+  color: $acento;
   font-weight: 700;
 }
 
 // ---------- Botones ----------
 .boton {
   font: inherit;
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.55rem 1.15rem;
-  border: 1px solid $arena;
+  padding: 0.65rem 1.25rem;
+  border: 1px solid $borde-campo;
   border-radius: 999px;
   background: $blanco;
-  color: $cafe;
+  color: $tinta;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+    transform 0.1s ease;
 
   &:hover:not(:disabled) {
-    border-color: $terracota;
-    color: $terracota-oscuro;
+    background: $suave;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
   }
 
   &:focus-visible {
-    outline: 2px solid $terracota;
+    outline: 2px solid $acento;
     outline-offset: 2px;
   }
 
@@ -67,14 +71,15 @@ body {
   }
 
   &--primario {
-    background: $terracota;
-    border-color: $terracota;
+    background: $negro;
+    border-color: $negro;
     color: $blanco;
 
     &:hover:not(:disabled) {
-      background: $terracota-oscuro;
-      border-color: $terracota-oscuro;
+      background: $negro;
+      border-color: $negro;
       color: $blanco;
+      opacity: 0.85;
     }
   }
 
@@ -102,7 +107,8 @@ body {
 
   &--chico {
     font-size: 0.82rem;
-    padding: 0.35rem 0.8rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
   }
 
   &--completo {
@@ -111,17 +117,22 @@ body {
 }
 
 .enlace-discreto {
+  font: inherit; // también se usa en botones del menú
   font-size: 0.85rem;
-  color: $cafe-suave;
+  color: $apagado;
   text-decoration: underline;
   text-underline-offset: 3px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
 
   &:hover {
-    color: $terracota-oscuro;
+    color: $acento-oscuro;
   }
 
   &:focus-visible {
-    outline: 2px solid $terracota;
+    outline: 2px solid $acento;
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -133,7 +144,7 @@ body {
   background: none;
   border: 0;
   padding: 0.2rem 0;
-  color: $cafe-suave;
+  color: $apagado;
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
@@ -143,7 +154,7 @@ body {
   }
 
   &:focus-visible {
-    outline: 2px solid $terracota;
+    outline: 2px solid $acento;
     outline-offset: 2px;
   }
 }
@@ -161,17 +172,18 @@ body {
 
   &__control {
     font: inherit;
-    padding: 0.55rem 0.7rem;
-    border: 1px solid $arena;
-    border-radius: 8px;
+    font-size: 0.875rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid $borde-campo;
+    border-radius: 20px;
     background: $blanco;
-    color: $cafe;
+    color: $tinta;
     width: 100%;
 
     &:focus-visible {
-      outline: 2px solid $terracota;
-      outline-offset: 1px;
-      border-color: $terracota;
+      outline: 0;
+      border-color: $acento;
+      box-shadow: 0 0 0 3px rgba(203, 66, 25, 0.2);
     }
 
     &[aria-invalid="true"] {
@@ -183,7 +195,7 @@ body {
   &__ayuda {
     margin: 0;
     font-size: 0.78rem;
-    color: $cafe-suave;
+    color: $apagado;
   }
 
   &__error {
@@ -229,8 +241,8 @@ body {
   max-width: min(90vw, 420px);
   padding: 0.7rem 1.1rem;
   border-radius: 999px;
-  background: $cafe;
-  color: $crema;
+  background: $negro;
+  color: $lienzo;
   font-size: 0.9rem;
   box-shadow: $sombra-alta;
   opacity: 0;

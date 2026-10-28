@@ -1,24 +1,31 @@
-// Paleta cálida artesanal
-$crema: #faf6f0;
-$crema-hueso: #f2eade;
+// Paleta tomada del diseño de Lovable: neutros cálidos, botones casi negros y un acento coral
+$lienzo: #f5f3f1; // fondo de la página
+$suave: #edeae8; // superficies secundarias
 $blanco: #ffffff;
-$cafe: #2e2016;
-$cafe-suave: #7a6a5c;
-$terracota: #c25b3a;
-$terracota-oscuro: #a44828;
-$arena: #e4d8c7;
+$tinta: #15100e; // texto
+$negro: #0f0f0f; // botones principales
+$apagado: #68625e; // texto secundario
+$acento: #cb4219; // coral
+$acento-oscuro: #b93000; // coral para texto sobre fondo claro
+$acento-suave: #ffe8e0; // fondo de etiquetas
+$linea: #e3e1df; // bordes
+$borde-campo: #dddad8; // bordes de campos y botones claros
 
 // Estados
-$ok: #2f6a45;
-$ok-fondo: #e8f2ea;
+$ok: #1f6b45;
+$ok-fondo: #e6f3ec;
 $peligro: #b3261e;
 $peligro-oscuro: #8f1d17;
 $peligro-fondo: #fbeae7;
 
-$serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
-$sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+// Tipografía: Plus Jakarta Sans se instala con npm (@fontsource) y la sirve el propio sitio
+$titulos: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", sans-serif;
+$sans: $titulos;
 
 $espacio: 1rem;
-$radio: 10px;
-$sombra: 0 2px 4px rgba(46, 32, 22, 0.05), 0 8px 24px rgba(46, 32, 22, 0.06);
-$sombra-alta: 0 4px 8px rgba(46, 32, 22, 0.08), 0 16px 32px rgba(46, 32, 22, 0.1);
+$radio: 24px;
+$radio-grande: 28px;
+$radio-chico: 16px;
+$sombra: 0 1px 2px rgba(21, 16, 14, 0.04), 0 6px 20px rgba(21, 16, 14, 0.06);
+$sombra-alta: 0 2px 6px rgba(21, 16, 14, 0.06), 0 18px 40px rgba(21, 16, 14, 0.14);
+$sombra-tarjeta: 0 20px 40px -12px rgba(21, 16, 14, 0.22);

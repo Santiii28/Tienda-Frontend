@@ -52,7 +52,7 @@ function crearSeccion(config) {
       crear("button", {
         type: "button",
         clase: "boton boton--primario",
-        texto: `Nuevo ${config.singular}`,
+        texto: config.nuevo,
         onClick: () => abrirFormulario(null),
       }),
     ),
@@ -90,7 +90,7 @@ function crearSeccion(config) {
       zonaTabla.append(
         crear("p", {
           clase: "vacio",
-          texto: `Todavía no hay ${config.plural.toLowerCase()}. Usa «Nuevo ${config.singular}» para crear el primero.`,
+          texto: `Todavía no hay ${config.plural.toLowerCase()}. Usa «${config.nuevo}» para crear el primero.`,
         }),
       );
       return;
@@ -293,7 +293,7 @@ function crearSeccion(config) {
         clase: "formulario__titulo",
         texto: editando
           ? `Editar ${config.singular}`
-          : `Nuevo ${config.singular}`,
+          : config.nuevo,
       }),
       crear(
         "p",
@@ -426,6 +426,7 @@ let listaCategorias = [];
 const seccionCategorias = crearSeccion({
   clave: "categoria",
   singular: "categoría",
+  nuevo: "Nueva categoría",
   singularCapitalizado: "Categoría",
   plural: "Categorías",
   api: categorias,
@@ -455,6 +456,7 @@ const seccionCategorias = crearSeccion({
 const seccionProductos = crearSeccion({
   clave: "producto",
   singular: "producto",
+  nuevo: "Nuevo producto",
   singularCapitalizado: "Producto",
   plural: "Productos",
   api: productos,
@@ -505,6 +507,16 @@ const seccionProductos = crearSeccion({
       ayuda: "Solo números, sin puntos ni símbolos.",
     },
     {
+      nombre: "precio_anterior",
+      etiqueta: "Precio anterior (COP)",
+      tipo: "number",
+      min: "0",
+      step: "any",
+      ejemplo: "Ej.: 300000",
+      ayuda: "Opcional. Si lo escribes (mayor que el precio), la tienda muestra el producto en oferta con este precio tachado. Déjalo vacío si no hay oferta.",
+      convertir: (texto) => (texto === "" ? null : Number(texto)),
+    },
+    {
       nombre: "existencias",
       etiqueta: "Unidades disponibles",
       tipo: "number",
@@ -522,10 +534,10 @@ const seccionProductos = crearSeccion({
     },
     {
       nombre: "imagen",
-      etiqueta: "Enlace de la imagen",
-      tipo: "url",
-      ejemplo: "https://...",
-      ayuda: "Opcional. Pega la dirección web de una foto del producto.",
+      etiqueta: "Imagen del producto",
+      tipo: "text",
+      ejemplo: "https://... o /productos/mesa.jpg",
+      ayuda: "Opcional. Pega la dirección web de una foto, o la ruta de una foto de la tienda (empieza con /).",
     },
   ],
 });
@@ -537,7 +549,7 @@ const PESTANAS = [
 ];
 
 function pantallaLogin(mensajeInicial = "") {
-  document.title = "Administración · Tienda en Línea Modular";
+  document.title = "Administración · Taller Nogal";
   const error = crear("p", { clase: "mensaje mensaje--error", role: "alert", texto: mensajeInicial });
   const boton = crear("button", {
     type: "submit",
@@ -592,6 +604,14 @@ function pantallaLogin(mensajeInicial = "") {
     boton.textContent = "Entrando...";
     try {
       const sesion = await iniciarSesion(usuario, clave);
+      if (!sesion.es_admin) {
+        // Es una cuenta de cliente: entra a la tienda, pero no a este panel.
+        error.textContent = "Esta cuenta no tiene permiso de administrador.";
+        boton.disabled = false;
+        boton.textContent = "Entrar";
+        formulario.elements.clave.value = "";
+        return;
+      }
       pantallaPanel(sesion.username);
     } catch (fallo) {
       error.textContent = fallo.message;
@@ -624,7 +644,7 @@ function pantallaLogin(mensajeInicial = "") {
 }
 
 function pantallaPanel(nombreUsuario) {
-  document.title = "Panel · Tienda en Línea Modular";
+  document.title = "Panel · Taller Nogal";
   let activa = PESTANAS[0].id;
 
   const contenido = crear("div", { clase: "panel__contenido" });
@@ -679,7 +699,7 @@ function pantallaPanel(nombreUsuario) {
           "div",
           {},
           crear("p", { clase: "eyebrow", texto: "Administración" }),
-          crear("h1", { clase: "barra__titulo", texto: "Tienda en Línea Modular" }),
+          crear("h1", { clase: "barra__titulo", texto: "Taller Nogal" }),
         ),
         crear(
           "div",
@@ -698,8 +718,10 @@ function pantallaPanel(nombreUsuario) {
 async function iniciar() {
   try {
     const sesion = await quienSoy();
-    if (sesion.autenticado) {
+    if (sesion.autenticado && sesion.es_admin) {
       pantallaPanel(sesion.username);
+    } else if (sesion.autenticado) {
+      pantallaLogin("Tu cuenta no tiene permiso de administrador. Entra con una cuenta de administrador.");
     } else {
       pantallaLogin();
     }

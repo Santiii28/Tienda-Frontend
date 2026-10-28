@@ -1,4 +1,5 @@
 import { ErrorApi, carritos } from "./api.js";
+import { abrirPago } from "./pago.js";
 import { avisar, crear, formatearPrecio } from "./utils.js";
 
 const CLAVE_TOKEN = "tienda_carrito_token";
@@ -6,7 +7,10 @@ const CLAVE_TOKEN = "tienda_carrito_token";
 const panel = document.querySelector("#panel-carrito");
 const cortina = document.querySelector("#cortina");
 const cuerpo = document.querySelector("#carrito-cuerpo");
+const subtotalCarrito = document.querySelector("#carrito-subtotal");
+const envioCarrito = document.querySelector("#carrito-envio");
 const totalCarrito = document.querySelector("#carrito-total");
+const botonPagar = document.querySelector("#ir-a-pagar");
 const cuenta = document.querySelector("#cuenta-carrito");
 const botonAbrir = document.querySelector("#abrir-carrito");
 const botonCerrar = document.querySelector("#cerrar-carrito");
@@ -104,7 +108,11 @@ function pintar() {
 
   cuenta.textContent = String(unidades);
   botonAbrir.setAttribute("aria-label", `Carrito, ${unidades} productos`);
-  totalCarrito.textContent = formatearPrecio(carrito ? carrito.total : 0);
+  // El servidor calcula todos los montos; aquí solo se muestran.
+  subtotalCarrito.textContent = formatearPrecio(carrito ? carrito.total : 0);
+  envioCarrito.textContent = formatearPrecio(carrito ? carrito.envio : 0);
+  totalCarrito.textContent = formatearPrecio(carrito ? carrito.total_a_pagar : 0);
+  botonPagar.disabled = items.length === 0;
 
   cuerpo.replaceChildren();
   if (items.length === 0) {
@@ -129,6 +137,7 @@ async function ejecutar(accion) {
   try {
     carrito = await accion();
     pintar();
+    return true;
   } catch (error) {
     if (error instanceof ErrorApi && error.estado === 404) {
       // El carrito ya no existe en el servidor: se empieza de nuevo.
@@ -139,6 +148,7 @@ async function ejecutar(accion) {
     } else {
       avisar(error.message, "error");
     }
+    return false;
   } finally {
     ocupado = false;
     panel.removeAttribute("aria-busy");
@@ -151,6 +161,48 @@ export function agregarAlCarrito(producto) {
     const actualizado = await carritos.agregar(token, producto.id, 1);
     avisar(`Agregado: ${producto.nombre}`, "ok");
     return actualizado;
+  });
+}
+
+// «Comprar ahora»: deja el producto en el carrito y abre directo el pago.
+export async function comprarAhora(producto) {
+  const yaEstaba = carrito && carrito.items.some((item) => item.producto === producto.id);
+  if (!yaEstaba) {
+    const listo = await ejecutar(async () => {
+      const token = await asegurarCarrito();
+      return carritos.agregar(token, producto.id, 1);
+    });
+    if (!listo) {
+      return;
+    }
+  }
+  irAPagar();
+}
+
+function irAPagar() {
+  if (!carrito || carrito.items.length === 0) {
+    return;
+  }
+  const token = carrito.token;
+  // El fondo oscuro y el bloqueo de scroll siguen activos mientras se paga.
+  panel.hidden = true;
+  cortina.hidden = false;
+  document.body.classList.add("sin-scroll");
+
+  abrirPago({
+    carrito,
+    alVolver: abrir,
+    alCerrar: cerrar,
+    alComprar: async (datos) => {
+      const resumen = await carritos.comprar(token, datos);
+      try {
+        carrito = await carritos.ver(token);
+      } catch {
+        carrito = null;
+      }
+      pintar();
+      return resumen;
+    },
   });
 }
 
@@ -180,6 +232,7 @@ function cerrar() {
 export async function iniciarCarrito() {
   botonAbrir.addEventListener("click", abrir);
   botonCerrar.addEventListener("click", cerrar);
+  botonPagar.addEventListener("click", irAPagar);
   cortina.addEventListener("click", cerrar);
   document.addEventListener("keydown", (evento) => {
     if (evento.key === "Escape" && !panel.hidden) {

@@ -5,43 +5,43 @@
   align-items: center;
   gap: 0.5rem;
   font: inherit;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.45rem 0.5rem 0.45rem 1.1rem;
-  border: 1px solid $cafe;
+  padding: 0.6rem 1rem;
+  border: 0;
   border-radius: 999px;
-  background: $cafe;
-  color: $crema;
+  background: $negro;
+  color: $blanco;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: opacity 0.15s ease;
 
   &:hover {
-    background: $terracota-oscuro;
-    border-color: $terracota-oscuro;
+    opacity: 0.85;
   }
 
   &:focus-visible {
-    outline: 2px solid $terracota;
+    outline: 2px solid $acento;
     outline-offset: 2px;
   }
 
   &__cuenta {
     display: inline-grid;
     place-items: center;
-    min-width: 1.6rem;
-    height: 1.6rem;
-    padding: 0 0.4rem;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.3rem;
     border-radius: 999px;
-    background: $terracota;
+    background: $acento;
     color: $blanco;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
+    font-weight: 700;
   }
 }
 
 .cortina {
   position: fixed;
   inset: 0;
-  background: rgba(46, 32, 22, 0.45);
+  background: rgba(21, 16, 14, 0.4);
   z-index: 40;
 }
 
@@ -50,11 +50,11 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(420px, 100vw);
+  width: min(28rem, 100vw);
   display: flex;
   flex-direction: column;
-  background: $crema;
-  box-shadow: $sombra-alta;
+  background: $blanco;
+  box-shadow: 0 25px 50px -12px rgba(21, 16, 14, 0.35);
   z-index: 50;
 
   &[aria-busy="true"] {
@@ -65,36 +65,34 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: $espacio * 1.25 $espacio * 1.25 $espacio;
-    border-bottom: 1px solid $arena;
+    padding: 1.25rem;
+    border-bottom: 1px solid $linea;
   }
 
   &__titulo {
     margin: 0;
-    font-family: $serif;
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: 1.125rem;
+    font-weight: 700;
   }
 
   &__cerrar {
     font: inherit;
     font-size: 1.6rem;
     line-height: 1;
-    width: 2.2rem;
-    height: 2.2rem;
-    border: 1px solid $arena;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 0;
     border-radius: 999px;
-    background: $blanco;
-    color: $cafe;
+    background: transparent;
+    color: $tinta;
     cursor: pointer;
 
     &:hover {
-      border-color: $terracota;
-      color: $terracota-oscuro;
+      background: $suave;
     }
 
     &:focus-visible {
-      outline: 2px solid $terracota;
+      outline: 2px solid $acento;
       outline-offset: 2px;
     }
   }
@@ -102,40 +100,21 @@
   &__cuerpo {
     flex: 1;
     overflow-y: auto;
-    padding: $espacio $espacio * 1.25;
+    padding: 1.25rem;
   }
 
   &__vacio {
-    margin: $espacio * 2 0;
+    margin: 4rem 0;
     text-align: center;
-    color: $cafe-suave;
-    font-style: italic;
+    color: $apagado;
   }
 
   &__resumen {
-    padding: $espacio * 1.25;
-    border-top: 1px solid $arena;
-    background: $crema-hueso;
-  }
-
-  &__total {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin: 0;
-
-    span {
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: $cafe-suave;
-      font-weight: 700;
-    }
-
-    strong {
-      font-size: 1.7rem;
-      letter-spacing: -0.02em;
-    }
+    flex-direction: column;
+    gap: $espacio;
+    padding: 1.25rem;
+    border-top: 1px solid $linea;
   }
 }
 
@@ -143,6 +122,9 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .linea {
@@ -153,12 +135,9 @@
     "cantidad quitar";
   gap: 0.5rem $espacio;
   align-items: center;
-  padding: $espacio 0;
-  border-bottom: 1px solid $arena;
-
-  &:last-child {
-    border-bottom: 0;
-  }
+  padding: 0.75rem 1rem;
+  border-radius: $radio;
+  background: $lienzo;
 
   &__datos {
     grid-area: datos;
@@ -166,20 +145,22 @@
 
   &__nombre {
     margin: 0;
-    font-family: $serif;
-    font-size: 1.1rem;
-    line-height: 1.25;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
   }
 
   &__precio {
-    margin: 0.15rem 0 0;
-    font-size: 0.8rem;
-    color: $cafe-suave;
+    margin: 0.1rem 0 0;
+    font-size: 0.75rem;
+    color: $apagado;
   }
 
   &__subtotal {
     grid-area: subtotal;
     margin: 0;
+    font-size: 0.875rem;
     font-weight: 700;
     text-align: right;
   }
@@ -197,41 +178,270 @@
 .cantidad {
   display: inline-flex;
   align-items: center;
-  border: 1px solid $arena;
-  border-radius: 999px;
-  background: $blanco;
+  gap: 0.25rem;
   width: fit-content;
 
   &__boton {
     font: inherit;
-    font-size: 1.1rem;
-    width: 2rem;
-    height: 2rem;
+    font-size: 1rem;
+    width: 1.75rem;
+    height: 1.75rem;
     border: 0;
     border-radius: 999px;
-    background: transparent;
-    color: $cafe;
+    background: $blanco;
+    color: $tinta;
     cursor: pointer;
 
     &:hover:not(:disabled) {
-      background: $crema-hueso;
-      color: $terracota-oscuro;
+      color: $acento;
     }
 
     &:focus-visible {
-      outline: 2px solid $terracota;
-      outline-offset: -2px;
+      outline: 2px solid $acento;
+      outline-offset: 1px;
     }
 
     &:disabled {
-      opacity: 0.35;
+      opacity: 0.4;
       cursor: not-allowed;
     }
   }
 
   &__valor {
-    min-width: 1.8rem;
+    min-width: 1.5rem;
     text-align: center;
+    font-size: 0.875rem;
     font-weight: 600;
+  }
+}
+
+// ---------- Desglose de montos (subtotal, envío, total a pagar) ----------
+.desglose {
+  margin: 0;
+
+  &__fila {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: $espacio;
+    padding: 0.2rem 0;
+    font-size: 0.875rem;
+
+    dt {
+      color: $apagado;
+    }
+
+    dd {
+      margin: 0;
+      color: $apagado;
+    }
+
+    &--total {
+      margin-top: 0.25rem;
+      font-size: 1rem;
+
+      dt,
+      dd {
+        color: $tinta;
+        font-weight: 800;
+      }
+    }
+  }
+}
+
+// ---------- Ventanas centradas (pago, cuenta y ficha de producto) ----------
+.pago {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $espacio;
+  z-index: 50;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__caja {
+    display: flex;
+    flex-direction: column;
+    width: min(32rem, 100%);
+    max-height: calc(100vh - #{$espacio * 2});
+    background: $blanco;
+    border-radius: $radio-grande;
+    box-shadow: 0 25px 50px -12px rgba(21, 16, 14, 0.35);
+    overflow: hidden;
+
+    .carrito__cabecera {
+      border-bottom: 0;
+      padding-bottom: 0.5rem;
+    }
+
+    .carrito__titulo {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+  }
+
+  &__cuerpo {
+    overflow-y: auto;
+    padding: 0.5rem 1.5rem 1.5rem;
+  }
+
+  &__subtitulo {
+    margin: $espacio 0 0.5rem;
+    font-size: 0.875rem;
+    color: $tinta;
+    font-weight: 700;
+  }
+
+  &__lineas {
+    list-style: none;
+    margin: 0 0 0.75rem;
+    padding: 1rem;
+    border-radius: $radio;
+    background: $lienzo;
+  }
+
+  &__linea {
+    display: flex;
+    justify-content: space-between;
+    gap: $espacio;
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+
+    span:last-child {
+      white-space: nowrap;
+    }
+  }
+
+  &__nota {
+    margin: 0.75rem 0 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: $radio-chico;
+    background: $lienzo;
+    font-size: 0.8rem;
+    color: $apagado;
+  }
+
+  &__formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__exito {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  &__exito-titulo {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: $acento;
+  }
+}
+
+// ---------- Cuenta (menú y ventana de acceso) ----------
+.menu__saludo {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $tinta;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.cuenta__cambio {
+  margin: $espacio 0 0;
+  font-size: 0.875rem;
+  color: $apagado;
+
+  .enlace-boton:hover {
+    color: $acento-oscuro;
+  }
+}
+
+// ---------- Ficha de producto ----------
+.pago__caja--ancha {
+  width: min(32rem, 100%);
+}
+
+.detalle {
+  &__imagen {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: $espacio;
+    background: $suave;
+
+    &--vacia {
+      display: grid;
+      place-items: center;
+      font-size: 4.5rem;
+      font-weight: 800;
+      color: $acento;
+    }
+  }
+
+  &__fila {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  &__nombre {
+    margin: 0;
+    min-width: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  &__precio {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  &__precios {
+    text-align: right;
+  }
+
+  &__oferta {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: $acento-oscuro;
+  }
+
+  &__stock {
+    display: inline-block;
+    margin: 0.75rem 0 0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: $acento-suave;
+    color: $acento-oscuro;
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    &--agotado {
+      background: $negro;
+      color: $blanco;
+    }
+  }
+
+  .producto__acciones {
+    margin-top: 1.5rem;
   }
 }

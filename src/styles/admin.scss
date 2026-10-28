@@ -7,7 +7,7 @@
   display: grid;
   place-items: center;
   padding: $espacio * 1.5 $espacio;
-  background: $crema-hueso;
+  background: $suave;
 
   &__tarjeta {
     width: min(100%, 400px);
@@ -15,20 +15,20 @@
     background: $blanco;
     border-radius: $radio;
     box-shadow: $sombra;
-    border-top: 3px solid $terracota;
+    border-top: 3px solid $acento;
   }
 
   &__titulo {
     margin: 0;
-    font-family: $serif;
+    font-family: $titulos;
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 650;
     line-height: 1.15;
   }
 
   &__texto {
     margin: $espacio * 0.5 0 $espacio * 1.5;
-    color: $cafe-suave;
+    color: $apagado;
     font-size: 0.92rem;
   }
 
@@ -42,8 +42,8 @@
 
 // ---------- Barra superior ----------
 .barra {
-  background: $crema-hueso;
-  border-bottom: 1px solid $arena;
+  background: $suave;
+  border-bottom: 1px solid $linea;
   padding: $espacio * 1.25 $espacio;
 
   &__interior {
@@ -58,9 +58,9 @@
 
   &__titulo {
     margin: 0;
-    font-family: $serif;
+    font-family: $titulos;
     font-size: 1.6rem;
-    font-weight: 400;
+    font-weight: 650;
     line-height: 1.15;
   }
 
@@ -74,7 +74,7 @@
   &__usuario {
     font-size: 0.85rem;
     font-weight: 600;
-    color: $cafe-suave;
+    color: $apagado;
   }
 }
 
@@ -89,7 +89,7 @@
   display: flex;
   gap: $espacio * 0.5;
   margin-bottom: $espacio * 1.5;
-  border-bottom: 1px solid $arena;
+  border-bottom: 1px solid $linea;
 }
 
 .pestana {
@@ -100,21 +100,21 @@
   border-bottom: 3px solid transparent;
   margin-bottom: -1px;
   background: none;
-  color: $cafe-suave;
+  color: $apagado;
   cursor: pointer;
 
   &:hover {
-    color: $terracota-oscuro;
+    color: $acento-oscuro;
   }
 
   &:focus-visible {
-    outline: 2px solid $terracota;
+    outline: 2px solid $acento;
     outline-offset: -2px;
   }
 
   &--activa {
-    color: $cafe;
-    border-bottom-color: $terracota;
+    color: $tinta;
+    border-bottom-color: $acento;
   }
 }
 
@@ -133,9 +133,9 @@
 
   &__titulo {
     margin: 0;
-    font-family: $serif;
+    font-family: $titulos;
     font-size: 1.6rem;
-    font-weight: 400;
+    font-weight: 650;
   }
 }
 
@@ -145,22 +145,22 @@
   background: $blanco;
   border-radius: $radio;
   box-shadow: $sombra;
-  border-left: 3px solid $terracota;
+  border-left: 3px solid $acento;
   display: flex;
   flex-direction: column;
   gap: $espacio;
 
   &__titulo {
     margin: 0;
-    font-family: $serif;
+    font-family: $titulos;
     font-size: 1.3rem;
-    font-weight: 400;
+    font-weight: 650;
   }
 
   &__nota {
     margin: -0.5rem 0 0;
     font-size: 0.8rem;
-    color: $cafe-suave;
+    color: $apagado;
   }
 
   &__campos {
@@ -205,13 +205,13 @@
     font-size: 0.7rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: $cafe-suave;
-    background: $crema;
-    border-bottom: 1px solid $arena;
+    color: $apagado;
+    background: $lienzo;
+    border-bottom: 1px solid $linea;
   }
 
   td {
-    border-bottom: 1px solid $arena;
+    border-bottom: 1px solid $linea;
   }
 
   tbody tr:last-child td {
@@ -219,7 +219,7 @@
   }
 
   tbody tr:hover {
-    background: rgba(242, 234, 222, 0.45);
+    background: rgba(238, 237, 232, 0.6);
   }
 
   .col-acciones {
@@ -243,7 +243,7 @@
 .vacio {
   margin: $espacio * 2 0;
   text-align: center;
-  color: $cafe-suave;
+  color: $apagado;
   font-style: italic;
 }
 
@@ -261,7 +261,7 @@
     tr {
       display: block;
       padding: 0.6rem 0;
-      border-bottom: 1px solid $arena;
+      border-bottom: 1px solid $linea;
     }
 
     tbody tr:last-child {
@@ -281,7 +281,7 @@
         font-size: 0.7rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: $cafe-suave;
+        color: $apagado;
         font-weight: 700;
         text-align: left;
       }

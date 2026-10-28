@@ -4,15 +4,33 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tienda en Línea Modular</title>
+    <title>Taller Nogal · Muebles y productos del taller</title>
   </head>
   <body>
     <header class="encabezado">
-      <div class="encabezado__interior">
-        <div class="encabezado__barra">
-          <p class="encabezado__eyebrow">Catálogo</p>
-          <nav class="encabezado__acciones" aria-label="Acciones">
-            <a class="enlace-discreto" href="/admin.html">Administración</a>
+      <div class="encabezado__barra">
+        <div class="encabezado__interior encabezado__interior--barra">
+          <a class="marca" href="#inicio" aria-label="Taller Nogal, inicio">
+            <img class="marca__logo" src="/logo.svg" alt="" width="36" height="36" />
+            <span class="marca__nombre">Taller Nogal</span>
+          </a>
+          <form class="buscador" id="buscador" role="search" autocomplete="off">
+            <label class="buscador__etiqueta" for="buscar">Buscar productos</label>
+            <input
+              class="buscador__campo"
+              id="buscar"
+              type="search"
+              placeholder="Buscar muebles y productos"
+              maxlength="80"
+            />
+          </form>
+          <nav class="encabezado__acciones" aria-label="Menú principal">
+            <a class="enlace-discreto" href="#inicio">Inicio</a>
+            <a class="enlace-discreto" href="#catalogo">Catálogo</a>
+            <a class="enlace-discreto" href="/admin.html" id="enlace-admin" hidden>Administración</a>
+            <span class="menu__saludo" id="saludo" hidden></span>
+            <button type="button" class="enlace-discreto" id="abrir-cuenta">Iniciar sesión</button>
+            <button type="button" class="enlace-discreto" id="cerrar-sesion" hidden>Cerrar sesión</button>
             <button
               type="button"
               class="boton-carrito"
@@ -20,23 +38,75 @@
               aria-haspopup="dialog"
               aria-label="Carrito, 0 productos"
             >
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               Carrito
               <span class="boton-carrito__cuenta" id="cuenta-carrito">0</span>
             </button>
           </nav>
         </div>
-        <h1 class="encabezado__titulo">Tienda en Línea Modular</h1>
-        <p class="encabezado__lema">Muebles y productos del taller, en un solo lugar</p>
       </div>
     </header>
 
     <main class="contenido">
+      <section class="hero" id="inicio" aria-label="Presentación">
+        <img class="hero__sello" src="/sello.svg" alt="" width="220" height="220" />
+        <div class="hero__texto">
+          <p class="encabezado__eyebrow">Tienda en línea</p>
+          <h1 class="encabezado__titulo">Taller Nogal</h1>
+          <p class="encabezado__lema">Muebles y productos del taller, en un solo lugar</p>
+          <a class="boton boton--primario hero__cta" href="#catalogo">Ver catálogo</a>
+          <ul class="hero__datos" aria-label="Cómo comprar">
+            <li>
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+              Envío con tarifa fija
+            </li>
+            <li>
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21a8 8 0 0 1 11.873-7"/><circle cx="10" cy="8" r="5"/><path d="m17 17 5 5"/><path d="m22 17-5 5"/></svg>
+              Compra sin crear cuenta
+            </li>
+          </ul>
+        </div>
+        <figure class="hero__foto">
+          <img src="/hero.jpg" width="1400" height="933" fetchpriority="high"
+               alt="Comedor con mesa de mármol y sillas de madera curvada junto a una alacena blanca" />
+        </figure>
+      </section>
+
       <section class="filtros" aria-label="Filtro por categoría">
-        <h2 class="filtros__titulo">Categorías</h2>
+        <h2 class="filtros__titulo">Compra por categoría</h2>
         <div class="filtros__lista" id="filtro-categorias" role="group"></div>
       </section>
 
-      <section class="catalogo" aria-label="Catálogo de productos">
+      <section class="catalogo" id="catalogo" aria-label="Catálogo de productos">
+        <div class="catalogo__cabecera">
+          <h2 class="catalogo__titulo" id="catalogo-titulo">Catálogo</h2>
+          <p class="catalogo__conteo" id="catalogo-conteo"></p>
+        </div>
+        <div class="herramientas" role="group" aria-label="Ordenar y filtrar el catálogo">
+          <div class="herramientas__campo">
+            <label class="herramientas__etiqueta" for="orden">Ordenar por</label>
+            <select class="herramientas__control" id="orden">
+              <option value="nombre">Nombre (A-Z)</option>
+              <option value="precio-asc">Precio: menor a mayor</option>
+              <option value="precio-desc">Precio: mayor a menor</option>
+            </select>
+          </div>
+          <div class="herramientas__campo">
+            <label class="herramientas__etiqueta" for="precio-min">Precio mínimo</label>
+            <input class="herramientas__control" id="precio-min" type="number" inputmode="numeric" min="0" step="1000" placeholder="$ 0" />
+          </div>
+          <div class="herramientas__campo">
+            <label class="herramientas__etiqueta" for="precio-max">Precio máximo</label>
+            <input class="herramientas__control" id="precio-max" type="number" inputmode="numeric" min="0" step="1000" placeholder="Sin límite" />
+          </div>
+          <label class="herramientas__marca" for="solo-stock">
+            <input type="checkbox" id="solo-stock" />
+            Solo con existencias
+          </label>
+          <button type="button" class="enlace-boton herramientas__limpiar" id="limpiar-filtros" hidden>
+            Quitar filtros
+          </button>
+        </div>
         <p id="estado" class="estado">Cargando productos...</p>
         <ul id="lista-productos" class="productos"></ul>
       </section>
@@ -64,12 +134,153 @@
       </div>
       <div class="carrito__cuerpo" id="carrito-cuerpo"></div>
       <div class="carrito__resumen">
-        <p class="carrito__total">
-          <span>Total</span>
-          <strong id="carrito-total">$ 0</strong>
-        </p>
+        <dl class="desglose">
+          <div class="desglose__fila">
+            <dt>Subtotal</dt>
+            <dd id="carrito-subtotal">$ 0</dd>
+          </div>
+          <div class="desglose__fila">
+            <dt>Envío</dt>
+            <dd id="carrito-envio">$ 0</dd>
+          </div>
+          <div class="desglose__fila desglose__fila--total">
+            <dt>Total a pagar</dt>
+            <dd id="carrito-total">$ 0</dd>
+          </div>
+        </dl>
+        <button type="button" class="boton boton--primario boton--completo" id="ir-a-pagar" disabled>
+          Ir a pagar
+        </button>
       </div>
     </aside>
+
+    <div
+      class="pago"
+      id="panel-pago"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="titulo-pago"
+      hidden
+    >
+      <div class="pago__caja">
+        <div class="carrito__cabecera">
+          <h2 class="carrito__titulo" id="titulo-pago">Pago</h2>
+          <button
+            type="button"
+            class="carrito__cerrar"
+            id="cerrar-pago"
+            aria-label="Cerrar el pago"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="pago__cuerpo" id="pago-cuerpo"></div>
+      </div>
+    </div>
+
+    <div
+      class="pago"
+      id="panel-detalle"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="titulo-detalle"
+      hidden
+    >
+      <div class="pago__caja pago__caja--ancha">
+        <div class="carrito__cabecera">
+          <h2 class="carrito__titulo" id="titulo-detalle">Detalle del producto</h2>
+          <button
+            type="button"
+            class="carrito__cerrar"
+            id="cerrar-detalle"
+            aria-label="Cerrar el detalle"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="pago__cuerpo" id="detalle-cuerpo"></div>
+      </div>
+    </div>
+
+    <div
+      class="pago"
+      id="panel-info"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="titulo-info"
+      hidden
+    >
+      <div class="pago__caja pago__caja--ancha">
+        <div class="carrito__cabecera">
+          <h2 class="carrito__titulo" id="titulo-info">Ayuda</h2>
+          <button
+            type="button"
+            class="carrito__cerrar"
+            id="cerrar-info"
+            aria-label="Cerrar la ayuda"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="pago__cuerpo" id="info-cuerpo"></div>
+      </div>
+    </div>
+
+    <div
+      class="pago"
+      id="panel-cuenta"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="titulo-cuenta"
+      hidden
+    >
+      <div class="pago__caja">
+        <div class="carrito__cabecera">
+          <h2 class="carrito__titulo" id="titulo-cuenta">Tu cuenta</h2>
+          <button
+            type="button"
+            class="carrito__cerrar"
+            id="cerrar-cuenta"
+            aria-label="Cerrar la ventana de cuenta"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="pago__cuerpo" id="cuenta-cuerpo"></div>
+      </div>
+    </div>
+
+    <footer class="pie">
+      <div class="pie__interior">
+        <section class="pie__bloque" aria-labelledby="pie-nosotros">
+          <h2 class="pie__titulo pie__titulo--marca" id="pie-nosotros">
+            <img src="/logo.svg" alt="" width="32" height="32" />
+            Taller Nogal
+          </h2>
+          <p>
+            Tienda en línea de muebles y productos del taller. Explora el catálogo por categorías,
+            busca lo que necesitas, arma tu carrito y compra sin crear una cuenta.
+          </p>
+        </section>
+        <nav class="pie__bloque" aria-labelledby="pie-comprar">
+          <h2 class="pie__titulo" id="pie-comprar">Comprar</h2>
+          <ul class="pie__lista">
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#inicio">Volver al inicio</a></li>
+          </ul>
+        </nav>
+        <nav class="pie__bloque" aria-labelledby="pie-info">
+          <h2 class="pie__titulo" id="pie-info">Ayuda</h2>
+          <ul class="pie__lista">
+            <li><button type="button" class="pie__enlace" data-info="como-comprar">Cómo comprar</button></li>
+            <li><button type="button" class="pie__enlace" data-info="envios">Envíos</button></li>
+            <li><button type="button" class="pie__enlace" data-info="pagos">Pagos</button></li>
+            <li><button type="button" class="pie__enlace" data-info="preguntas">Preguntas frecuentes</button></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="pie__derechos">© 2026 Taller Nogal</p>
+    </footer>
 
     <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
 
