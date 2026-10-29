@@ -1,7 +1,9 @@
 // Intermediario entre la tienda (Vercel) y la API (Render).
 // Recibe todo lo que llega a /api/* y lo reenvía al backend, para que el navegador
 // siga hablando con un solo dominio (las cookies y el CSRF funcionan igual que en
-// desarrollo con el proxy de Vite). Reemplaza al "rewrite" de vercel.json.
+// desarrollo con el proxy de Vite).
+// vercel.json reescribe /api/:path* hacia /api/proxy?__ruta=:path*, porque una ruta
+// comodín de Vercel solo atiende rutas de un nivel (/api/auth/yo no entraría).
 const BACKEND = (process.env.BACKEND_URL || "https://tienda-backend-am7z.onrender.com").replace(/\/+$/, "");
 
 // Cabeceras que no se copian de un lado al otro (las recalcula cada extremo).
@@ -14,6 +16,18 @@ async function leerCuerpo(req) {
     partes.push(parte);
   }
   return Buffer.concat(partes);
+}
+
+// Ruta que se pide al backend: la que viene en "__ruta" (la deja la regla de vercel.json)
+// más el resto de parámetros de la consulta; sin "__ruta" se usa la URL tal cual.
+function destinoEnBackend(urlPedida) {
+  const url = new URL(urlPedida, "http://intermediario.local");
+  const ruta = url.searchParams.get("__ruta");
+  if (ruta === null) {
+    return urlPedida;
+  }
+  url.searchParams.delete("__ruta");
+  return `/api/${ruta.replace(/^\/+|\/+$/g, "")}${url.search}`;
 }
 
 export default async function handler(req, res) {
@@ -32,7 +46,7 @@ export default async function handler(req, res) {
       opciones.body = await leerCuerpo(req);
     }
 
-    const respuesta = await fetch(BACKEND + req.url, opciones);
+    const respuesta = await fetch(BACKEND + destinoEnBackend(req.url), opciones);
 
     res.statusCode = respuesta.status;
     respuesta.headers.forEach((valor, nombre) => {
