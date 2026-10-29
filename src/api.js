@@ -54,7 +54,9 @@ async function pedir(ruta, { metodo = "GET", cuerpo } = {}) {
 
   let respuesta;
   try {
-    respuesta = await fetch(`${API_URL}${ruta}`, opciones);
+    // Se quita la barra final de la ruta: el intermediario de Vercel (api/[...path].js)
+    // solo recibe rutas sin ella, y el backend las acepta con o sin barra.
+    respuesta = await fetch(`${API_URL}${ruta.replace(/\/(?=\?|$)/, "")}`, opciones);
   } catch {
     throw new ErrorApi(0, null);
   }
