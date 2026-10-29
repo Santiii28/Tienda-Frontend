@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://REEMPLAZAR-POR-TU-SERVICIO.onrender.com/api/:path*"
+      "destination": "https://tienda-backend-am7z.onrender.com/api/:path*"
     }
   ],
   "headers": [
